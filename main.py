@@ -43,6 +43,11 @@ while run:
             print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
                   bcolors.ENDC)
 
+        mp_lost = player.get_spell_mp_cost(magic_index)
+        player.reduce_mp(mp_lost)
+        print(mp_lost)
+        print(player.get_mp())
+
         magic_dmg = player.generate_spell_damage(magic_index)
         enemy.take_damage(magic_dmg)
         print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg), "damage!",
