@@ -1,5 +1,6 @@
 from classes.game import Person, bcolors
 
+# Magic array
 magic = [{"name": "Fire", "cost": 7, "dmg": 150},
          {"name": "Thunder", "cost": 10, "dmg": 160},
          {"name": "Blizzard", "cost": 15, "dmg": 170}]
@@ -12,6 +13,7 @@ i = 0
 
 print(bcolors.FAIL + bcolors.BOLD + "AN ENEMY ATTACKS" + bcolors.ENDC)
 
+# Choose the type of attack
 while run:
     print("======================================")
     player.choose_action()
@@ -19,39 +21,48 @@ while run:
 
     index = int(choice) - 1
 
-    # Melee Attack
+    # Melee Attack (1)
     if index == 0:
         print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose Melee Attack!", str(index) + bcolors.ENDC)
         dmg = player.generate_damage()
         enemy.take_damage(dmg)
-        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(dmg), "damage!", "Enemy HP reduced to",
-              str(enemy.get_hp()) + bcolors.ENDC)
+        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(dmg), "damage!" + bcolors.ENDC)
 
-    # Magic Attack
+    # Magic Attack (2)
     elif index == 1:
         print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose Magic Attack!", str(index) + bcolors.ENDC)
         player.choose_magic()
         magic_choice = input(bcolors.BOLD + "Choose your Magic attack: " + bcolors.ENDC)
         magic_index = int(magic_choice) - 1
-        if magic_index == 0:
-            print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                  bcolors.ENDC)
-        elif magic_index == 1:
-            print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                  bcolors.ENDC)
-        elif magic_index == 2:
-            print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                  bcolors.ENDC)
 
+        # Verify if Magic Points Available
         mp_lost = player.get_spell_mp_cost(magic_index)
-        player.reduce_mp(mp_lost)
-        print(mp_lost)
-        print(player.get_mp())
+        current_mp = player.get_mp()
 
-        magic_dmg = player.generate_spell_damage(magic_index)
-        enemy.take_damage(magic_dmg)
-        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg), "damage!",
-              "Enemy HP reduced to", str(enemy.get_hp()) + bcolors.ENDC)
+        if mp_lost > current_mp:
+            print(bcolors.FAIL + bcolors.BOLD + "\nNot enough Magic Points\n" + bcolors.ENDC)
+            continue
+        # Magic Attack choices
+        else:
+            if magic_index == 0:
+                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
+                      bcolors.ENDC)
+            elif magic_index == 1:
+                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
+                      bcolors.ENDC)
+            elif magic_index == 2:
+                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
+                      bcolors.ENDC)
+
+            # Magic points reduced
+            player.reduce_mp(mp_lost)
+            print(mp_lost)
+            print(player.get_mp())
+
+            # Magic damage done
+            magic_dmg = player.generate_spell_damage(magic_index)
+            enemy.take_damage(magic_dmg)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg), "spell damage!" + bcolors.ENDC)
 
     # Quit Game
     elif index == 2:
@@ -64,9 +75,15 @@ while run:
         print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "Enemy chose Melee Attack!", str(index) + bcolors.ENDC)
         dmg = enemy.generate_damage()
         player.take_damage(dmg)
-        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You were attacked for", str(dmg), "damage!",
-              "Your HP reduced to",
-              str(player.get_hp()) + bcolors.ENDC)
+        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You were attacked for", str(dmg), "damage!" + bcolors.ENDC)
+
+    # Player and Enemy HP
+    print("======================================")
+    print(bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC)
+    print("")
+    print(bcolors.BOLD + "Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + "    "
+          + bcolors.ENDC + bcolors.BOLD + "MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp())
+          + bcolors.ENDC)
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + bcolors.BOLD + "You Won!!" + bcolors.ENDC)
