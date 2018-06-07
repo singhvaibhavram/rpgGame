@@ -1,12 +1,24 @@
 from classes.game import Person, bcolors
+from classes.magic import Spell
 
-# Magic array
-magic = [{"name": "Fire", "cost": 7, "dmg": 150},
-         {"name": "Thunder", "cost": 10, "dmg": 160},
-         {"name": "Blizzard", "cost": 15, "dmg": 170}]
+# Attack Magic
+fire = Spell("Fire Heat", 7, 150, "Elemental")
+thunder = Spell("Thunder", 10, 160, "Elemental")
+blizzard = Spell("Blizzard", 15, 170, "Elemental")
+quake = Spell("Quake", 20, 180, "Ground")
+meteor = Spell("Meteor", 23, 190, "Rock")
+crunch = Spell("Crunch", 25, 200, "Dark")
+darkpulse = Spell("Dark Pulse", 27, 210, "Dark")
+shadowball = Spell("Shadow Ball", 30, 220, "Ghost")
+destinybond = Spell("Destiny Bond", 33, 230, "Ghost")
 
-player = Person(1550, 45, 20, 34, magic)
-enemy = Person(1200, 20, 10, 7, magic)
+# Heal magic
+cure = Spell("Recover", 20, 300, "Healing")
+cure2 = Spell("Regenerator", 25, 350, "Healing")
+
+player = Person(1550, 45, 20, 34, [fire, thunder, blizzard, quake, meteor, crunch, darkpulse, shadowball, destinybond,
+                                   cure, cure2])
+enemy = Person(1200, 20, 10, 7, [])
 
 run = True
 i = 0
@@ -35,34 +47,25 @@ while run:
         magic_choice = input(bcolors.BOLD + "Choose your Magic attack: " + bcolors.ENDC)
         magic_index = int(magic_choice) - 1
 
+        spell = player.magic[magic_index]
+        magic_dmg = spell.generate_damage()
+
         # Verify if Magic Points Available
-        mp_lost = player.get_spell_mp_cost(magic_index)
         current_mp = player.get_mp()
 
-        if mp_lost > current_mp:
+        if spell.cost > current_mp:
             print(bcolors.FAIL + bcolors.BOLD + "\nNot enough Magic Points\n" + bcolors.ENDC)
             continue
-        # Magic Attack choices
-        else:
-            if magic_index == 0:
-                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                      bcolors.ENDC)
-            elif magic_index == 1:
-                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                      bcolors.ENDC)
-            elif magic_index == 2:
-                print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", player.get_spell_name(magic_index) + "!" +
-                      bcolors.ENDC)
 
-            # Magic points reduced
-            player.reduce_mp(mp_lost)
-            print(mp_lost)
-            print(player.get_mp())
-
-            # Magic damage done
-            magic_dmg = player.generate_spell_damage(magic_index)
-            enemy.take_damage(magic_dmg)
-            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg), "spell damage!" + bcolors.ENDC)
+        # Magic points reduced
+        player.reduce_mp(spell.cost)
+        # Spell Choice
+        print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", spell.name + "!" +
+              bcolors.ENDC)
+        # Magic damage done
+        enemy.take_damage(magic_dmg)
+        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg),
+              "spell damage!" + bcolors.ENDC)
 
     # Quit Game
     elif index == 2:
