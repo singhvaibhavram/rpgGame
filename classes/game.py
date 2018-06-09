@@ -1,18 +1,5 @@
 import random
-
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    ATTACKTYPE = '\033[36m'
-    ATTACKCHOSEN = '\033[33m'
-    ATTACKGIVETAKE = '\033[35m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+from classes.colors import bcolors
 
 
 class Person:
@@ -61,12 +48,4 @@ class Person:
         print(bcolors.OKBLUE + bcolors.BOLD + "Actions" + bcolors.ENDC)
         for item in self.actions:
             print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ":", item + bcolors.ENDC)
-            i += 1
-
-    def choose_magic(self):
-        i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Magic" + bcolors.ENDC)
-        for spell in self.magic:
-            print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ":", spell.name, "(cost:", str(spell.cost) + ")" +
-                  bcolors.ENDC)
             i += 1

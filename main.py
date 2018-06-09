@@ -1,16 +1,17 @@
-from classes.game import Person, bcolors
+from classes.game import Person
 from classes.magic import Spell
+from classes.colors import bcolors
 
 # Attack Magic
-fire = Spell("Fire Heat", 7, 150, "Elemental")
-thunder = Spell("Thunder", 10, 160, "Elemental")
-blizzard = Spell("Blizzard", 15, 170, "Elemental")
-quake = Spell("Quake", 20, 180, "Ground")
-meteor = Spell("Meteor", 23, 190, "Rock")
+fire = Spell("Fire Heat", 7, 150, "Dark")
+thunder = Spell("Thunder", 10, 160, "Dark")
+blizzard = Spell("Blizzard", 15, 170, "Dark")
+quake = Spell("Quake", 20, 180, "Dark")
+meteor = Spell("Meteor", 23, 190, "Dark")
 crunch = Spell("Crunch", 25, 200, "Dark")
 darkpulse = Spell("Dark Pulse", 27, 210, "Dark")
-shadowball = Spell("Shadow Ball", 30, 220, "Ghost")
-destinybond = Spell("Destiny Bond", 33, 230, "Ghost")
+shadowball = Spell("Shadow Ball", 30, 220, "Dark")
+destinybond = Spell("Destiny Bond", 33, 230, "Dark")
 
 # Heal magic
 cure = Spell("Recover", 20, 300, "Healing")
@@ -49,6 +50,7 @@ while run:
 
         spell = player.magic[magic_index]
         magic_dmg = spell.generate_damage()
+        magic_heal = spell.generate_heal()
 
         # Verify if Magic Points Available
         current_mp = player.get_mp()
@@ -59,13 +61,21 @@ while run:
 
         # Magic points reduced
         player.reduce_mp(spell.cost)
+
         # Spell Choice
         print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", spell.name + "!" +
               bcolors.ENDC)
-        # Magic damage done
-        enemy.take_damage(magic_dmg)
-        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg),
-              "spell damage!" + bcolors.ENDC)
+
+        # healing
+        if spell.type == "Healing":
+            player.heal(magic_heal)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You healed yourself for", str(magic_heal),
+                  "HP!" + bcolors.ENDC)
+        # Dark magic damage done
+        elif spell.type == "Dark":
+            enemy.take_damage(magic_dmg)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg),
+                  "spell damage!" + bcolors.ENDC)
 
     # Quit Game
     elif index == 2:
