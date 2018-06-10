@@ -3,11 +3,11 @@ from classes.colors import bcolors
 
 
 class Spell:
-    def __init__(self, name, cost, dmg, type):
+    def __init__(self, name, cost, dmg, stype):
         self.name = name
         self.cost = cost
         self.dmg = dmg
-        self.type = type
+        self.stype = stype
 
     def generate_damage(self):
         mgl = self.dmg - 15
@@ -16,12 +16,3 @@ class Spell:
 
     def generate_heal(self):
         return self.dmg
-
-    def choose_magic(self):
-        i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Magic" + bcolors.ENDC)
-        for spell in self.magic:
-            print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ":", spell.name, "(cost:", str(spell.cost) + ")" +
-                  bcolors.ENDC)
-            i += 1
-

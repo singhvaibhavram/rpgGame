@@ -1,6 +1,7 @@
 from classes.game import Person
 from classes.magic import Spell
 from classes.colors import bcolors
+from classes.inventory import Item
 
 # Attack Magic
 fire = Spell("Fire Heat", 7, 150, "Dark")
@@ -17,6 +18,18 @@ destinybond = Spell("Destiny Bond", 33, 230, "Dark")
 cure = Spell("Recover", 20, 300, "Healing")
 cure2 = Spell("Regenerator", 25, 350, "Healing")
 
+# Usables
+heal_potion1 = Item("Heal Potion(Low)", "potion", "Heals 50 HP", 50)
+heal_potion2 = Item("Hi-Heal Potion", "potion", "Heals 100 HP", 100)
+heal_potion3 = Item("Super Heal Potion", "potion", "Heals 500 HP", 500)
+heal_elixir = Item("Elixir", "elixir", "Heals full HP/MP of one member", 99999)
+heal_mega_elixir = Item("Mega Elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
+
+# Damage Items
+grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
+
+
+# Players
 player = Person(1550, 45, 20, 34, [fire, thunder, blizzard, quake, meteor, crunch, darkpulse, shadowball, destinybond,
                                    cure, cure2])
 enemy = Person(1200, 20, 10, 7, [])
@@ -67,12 +80,12 @@ while run:
               bcolors.ENDC)
 
         # healing
-        if spell.type == "Healing":
+        if spell.stype == "Healing":
             player.heal(magic_heal)
             print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You healed yourself for", str(magic_heal),
                   "HP!" + bcolors.ENDC)
         # Dark magic damage done
-        elif spell.type == "Dark":
+        elif spell.stype == "Dark":
             enemy.take_damage(magic_dmg)
             print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg),
                   "spell damage!" + bcolors.ENDC)

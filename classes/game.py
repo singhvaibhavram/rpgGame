@@ -49,3 +49,11 @@ class Person:
         for item in self.actions:
             print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ":", item + bcolors.ENDC)
             i += 1
+
+    def choose_magic(self):
+        i = 1
+        print(bcolors.OKBLUE + bcolors.BOLD + "Magic" + bcolors.ENDC)
+        for spell in self.magic:
+            print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ":", spell.name, "(cost:", str(spell.cost) + ")" +
+                  bcolors.ENDC)
+            i += 1
