@@ -58,3 +58,10 @@ class Person:
             print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ":", spell.name, "(cost:", str(spell.cost) + ")" +
                   bcolors.ENDC)
             i += 1
+
+    def choose_items(self):
+        i = 1
+        print(bcolors.OKBLUE + bcolors.BOLD + "Items" + bcolors.ENDC)
+        for item in self.items:
+            print(bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ":", item.name + bcolors.ENDC)
+            i += 1

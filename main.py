@@ -23,17 +23,16 @@ heal_potion1 = Item("Heal Potion(Low)", "potion", "Heals 50 HP", 50)
 heal_potion2 = Item("Hi-Heal Potion", "potion", "Heals 100 HP", 100)
 heal_potion3 = Item("Super Heal Potion", "potion", "Heals 500 HP", 500)
 heal_elixir = Item("Elixir", "elixir", "Heals full HP/MP of one member", 99999)
-heal_mega_elixir = Item("Mega Elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
+heal_mega_elixir = Item("Mega elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
 
 # Damage Items
-grenade = Item("Grenade", "explosive", "Deals 500 damage", 500)
-
-
+grenade = Item("Grenade", "throwable", "Deals 500 damage", 500)
 
 # Players
-player = Person(1550, 45, 20, 34, [fire, thunder, blizzard, quake, meteor, crunch, dark_pulse, shadow_ball, destiny_bond,
-                                   cure, cure2], [grenade])
-enemy = Person(1200, 20, 10, 7, [], [])
+player = Person(1500, 45, 20, 34,
+                [fire, thunder, blizzard, quake, meteor, crunch, dark_pulse, shadow_ball, destiny_bond,
+                 cure, cure2], [heal_potion1, heal_potion2, heal_potion3, heal_elixir, heal_mega_elixir])
+enemy = Person(1200, 50, 100, 7, [], [])
 
 run = True
 i = 0
@@ -93,15 +92,32 @@ while run:
 
     # Usable and Items
     elif index == 2:
-        print(bcolors.FAIL + bcolors.BOLD + "You Quit!" + bcolors.ENDC)
-        break
+        print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose Items!", str(index) + bcolors.ENDC)
+        player.choose_items()
+        items_choice = input(bcolors.BOLD + "Choose Item: " + bcolors.ENDC)
+        items_index = int(items_choice) - 1
+
+        item = player.items[items_index]
+        item_dmg = item.generate_damage()
+        item_heal = item.generate_heal()
+
+        if item.itype == "potion":
+            player.heal(item_heal)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You healed yourself for", str(item_heal),
+                  "HP!" + bcolors.ENDC)
+
+        elif item.itype == "throwable":
+            enemy.take_damage(item_dmg)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(item_dmg), "damage!" + bcolors.ENDC)
 
     # Quit Game
     elif index == 3:
         print(bcolors.FAIL + bcolors.BOLD + "You Quit!" + bcolors.ENDC)
         break
 
-
+    else:
+        print("Such choice does not exists!!")
+        continue
 
     enemy_choice = 1
 
