@@ -10,9 +10,9 @@ blizzard = Spell("Blizzard", 15, 170, "Dark")
 quake = Spell("Quake", 20, 180, "Dark")
 meteor = Spell("Meteor", 23, 190, "Dark")
 crunch = Spell("Crunch", 25, 200, "Dark")
-darkpulse = Spell("Dark Pulse", 27, 210, "Dark")
-shadowball = Spell("Shadow Ball", 30, 220, "Dark")
-destinybond = Spell("Destiny Bond", 33, 230, "Dark")
+dark_pulse = Spell("Dark Pulse", 27, 210, "Dark")
+shadow_ball = Spell("Shadow Ball", 30, 220, "Dark")
+destiny_bond = Spell("Destiny Bond", 33, 230, "Dark")
 
 # Heal magic
 cure = Spell("Recover", 20, 300, "Healing")
@@ -26,13 +26,14 @@ heal_elixir = Item("Elixir", "elixir", "Heals full HP/MP of one member", 99999)
 heal_mega_elixir = Item("Mega Elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
 
 # Damage Items
-grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
+grenade = Item("Grenade", "explosive", "Deals 500 damage", 500)
+
 
 
 # Players
-player = Person(1550, 45, 20, 34, [fire, thunder, blizzard, quake, meteor, crunch, darkpulse, shadowball, destinybond,
-                                   cure, cure2])
-enemy = Person(1200, 20, 10, 7, [])
+player = Person(1550, 45, 20, 34, [fire, thunder, blizzard, quake, meteor, crunch, dark_pulse, shadow_ball, destiny_bond,
+                                   cure, cure2], [grenade])
+enemy = Person(1200, 20, 10, 7, [], [])
 
 run = True
 i = 0
@@ -90,10 +91,17 @@ while run:
             print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You attacked for", str(magic_dmg),
                   "spell damage!" + bcolors.ENDC)
 
-    # Quit Game
+    # Usable and Items
     elif index == 2:
         print(bcolors.FAIL + bcolors.BOLD + "You Quit!" + bcolors.ENDC)
         break
+
+    # Quit Game
+    elif index == 3:
+        print(bcolors.FAIL + bcolors.BOLD + "You Quit!" + bcolors.ENDC)
+        break
+
+
 
     enemy_choice = 1
 

@@ -1,5 +1,4 @@
 import random
-from classes.colors import bcolors
 
 
 class Spell:
