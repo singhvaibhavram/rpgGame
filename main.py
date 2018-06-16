@@ -28,10 +28,14 @@ heal_mega_elixir = Item("Mega elixir", "elixir", "Heals full HP/MP of the whole 
 # Damage Items
 grenade = Item("Grenade", "throwable", "Deals 500 damage", 500)
 
+# Used by player
+player_magic = [fire, thunder, blizzard, quake, meteor, crunch, dark_pulse, shadow_ball, destiny_bond, cure, cure2]
+player_usables = [{"item": heal_potion1, "quantity": 50}, {"item": heal_potion2, "quantity": 20},
+                  {"item": heal_potion3, "quantity": 3}, {"item": heal_elixir, "quantity": 2},
+                  {"item": heal_mega_elixir, "quantity": 2}, {"item": grenade, "quantity": 2}]
+
 # Players
-player = Person(1500, 45, 20, 34,
-                [fire, thunder, blizzard, quake, meteor, crunch, dark_pulse, shadow_ball, destiny_bond,
-                 cure, cure2], [heal_potion1, heal_potion2, heal_potion3, heal_elixir, heal_mega_elixir])
+player = Person(1500, 45, 20, 34, player_magic, player_usables)
 enemy = Person(1200, 50, 100, 7, [], [])
 
 run = True
@@ -61,6 +65,9 @@ while run:
         magic_choice = input(bcolors.BOLD + "Choose your Magic attack: " + bcolors.ENDC)
         magic_index = int(magic_choice) - 1
 
+        if magic_index == -1:
+            continue
+
         spell = player.magic[magic_index]
         magic_dmg = spell.generate_damage()
         magic_heal = spell.generate_heal()
@@ -76,8 +83,7 @@ while run:
         player.reduce_mp(spell.cost)
 
         # Spell Choice
-        print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", spell.name + "!" +
-              bcolors.ENDC)
+        print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", spell.name + "!" + bcolors.ENDC)
 
         # healing
         if spell.stype == "Healing":
@@ -97,14 +103,30 @@ while run:
         items_choice = input(bcolors.BOLD + "Choose Item: " + bcolors.ENDC)
         items_index = int(items_choice) - 1
 
-        item = player.items[items_index]
+        if items_index == -1:
+            continue
+
+        item = player.items[items_index]["item"]
+
+        if player.items[items_index]["quantity"] == 0:
+            print(bcolors.FAIL + bcolors.BOLD + "\nNot enough", item.name, "\n" + bcolors.ENDC)
+            continue
+
         item_dmg = item.generate_damage()
-        item_heal = item.generate_heal()
+        player.items[items_index]["quantity"] -= 1
+
+        # Item Choice
+        print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "You chose", item.name + "!" + bcolors.ENDC)
 
         if item.itype == "potion":
-            player.heal(item_heal)
-            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You healed yourself for", str(item_heal),
+            player.heal(item.value)
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You healed yourself for", str(item.value),
                   "HP!" + bcolors.ENDC)
+
+        elif item.itype == "elixir":
+            player.hp = player.maxhp
+            player.mp = player.maxmp
+            print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You fully restored your HP and MP!" + bcolors.ENDC)
 
         elif item.itype == "throwable":
             enemy.take_damage(item_dmg)
