@@ -70,6 +70,9 @@ class Person:
             i += 1
 
     def get_stats(self):
+        hp_display = str(self.hp) + "/" + str(self.maxhp)
+        mp_display = str(self.mp) + "/" + str(self.maxmp)
+
         healthbar = ""
         mpbar = ""
         health_bar = (self.hp / self.maxhp) * 100 / 4
@@ -89,8 +92,32 @@ class Person:
         while len(mpbar) < 10:
             mpbar += " "
 
-        print("                        _________________________              __________")
-        print(bcolors.BOLD + self.name + "     " + str(self.hp) + "/" + str(self.maxhp) + "  |" + bcolors.OKGREEN
-              + healthbar + bcolors.ENDC + bcolors.BOLD + "|     " + str(self.mp) + "/"
-              + str(self.maxmp) + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD + "|"
-              + bcolors.ENDC)
+        current_hp = ""
+        current_mp = ""
+
+        if len(hp_display) < 9:
+            decreased = 9 - len(hp_display)
+            while decreased > 0:
+                current_hp += " "
+                decreased -= 1
+
+            current_hp += hp_display
+
+        else:
+            current_hp = hp_display
+
+        if len(mp_display) < 7:
+            decreased = 7 - len(mp_display)
+            while decreased > 0:
+                current_mp += " "
+                decreased -= 1
+
+            current_mp += mp_display
+
+        else:
+            current_mp = mp_display
+
+        print("                        _________________________                __________")
+        print(bcolors.BOLD + self.name + "     " + current_hp + "  |" + bcolors.OKGREEN + healthbar + bcolors.ENDC
+              + bcolors.BOLD + "|     " + current_mp + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD
+              + "|" + bcolors.ENDC)
