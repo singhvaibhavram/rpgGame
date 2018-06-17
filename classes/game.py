@@ -3,7 +3,8 @@ from classes.colors import bcolors
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self, name, hp, mp, atk, df, magic, items):
+        self.name = name
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -46,23 +47,31 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Actions" + bcolors.ENDC)
+        print("\n" + bcolors.BOLD + self.name + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    Actions" + bcolors.ENDC)
         for item in self.actions:
-            print("    ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item + bcolors.ENDC)
+            print("        ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item + bcolors.ENDC)
             i += 1
 
     def choose_magic(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Magic" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    Magic" + bcolors.ENDC)
         for spell in self.magic:
-            print("    ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ".", spell.name, "(cost:", str(spell.cost) + ")" +
+            print("        ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ".", spell.name, "(cost:", str(spell.cost) + ")" +
                   bcolors.ENDC)
             i += 1
 
     def choose_items(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Items" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    Items" + bcolors.ENDC)
         for item in self.items:
-            print("    ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item["item"].name + ":", item["item"].desc,
+            print("        ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item["item"].name + ":", item["item"].desc,
                   "(x" + str(item["quantity"]) + ")" + bcolors.ENDC)
             i += 1
+
+    def get_stats(self):
+        print("                        _________________________              __________")
+        print(bcolors.BOLD + self.name + "     " + str(self.hp) + "/" + str(self.maxhp) + "  |" + bcolors.OKGREEN
+              + "█████████████████████████" + bcolors.ENDC + bcolors.BOLD + "|     " + str(self.mp) + "/"
+              + str(self.maxmp) + "  |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|"
+              + bcolors.ENDC)
