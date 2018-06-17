@@ -4,24 +4,24 @@ from classes.colors import bcolors
 from classes.inventory import Item
 
 # Attack Magic
-fire = Spell("Fire Heat", 7, 150, "Dark")
-thunder = Spell("Thunder", 10, 160, "Dark")
-blizzard = Spell("Blizzard", 15, 170, "Dark")
-quake = Spell("Quake", 20, 180, "Dark")
-meteor = Spell("Meteor", 23, 190, "Dark")
-crunch = Spell("Crunch", 25, 200, "Dark")
-dark_pulse = Spell("Dark Pulse", 27, 210, "Dark")
-shadow_ball = Spell("Shadow Ball", 30, 220, "Dark")
-destiny_bond = Spell("Destiny Bond", 33, 230, "Dark")
+fire = Spell("Fire Heat", 27, 150, "Dark")
+thunder = Spell("Thunder", 30, 160, "Dark")
+blizzard = Spell("Blizzard", 35, 170, "Dark")
+quake = Spell("Quake", 40, 180, "Dark")
+meteor = Spell("Meteor", 43, 190, "Dark")
+crunch = Spell("Crunch", 45, 200, "Dark")
+dark_pulse = Spell("Dark Pulse", 47, 210, "Dark")
+shadow_ball = Spell("Shadow Ball", 50, 220, "Dark")
+destiny_bond = Spell("Destiny Bond", 53, 230, "Dark")
 
 # Heal magic
 cure = Spell("Recover", 20, 300, "Healing")
 cure2 = Spell("Regenerator", 25, 350, "Healing")
 
 # Usables
-heal_potion1 = Item("Heal Potion(Low)", "potion", "Heals 50 HP", 50)
-heal_potion2 = Item("Hi-Heal Potion", "potion", "Heals 100 HP", 100)
-heal_potion3 = Item("Super Heal Potion", "potion", "Heals 500 HP", 500)
+heal_potion1 = Item("Heal Potion(Low)", "potion", "Heals 50 HP", 150)
+heal_potion2 = Item("Hi-Heal Potion", "potion", "Heals 100 HP", 200)
+heal_potion3 = Item("Super Heal Potion", "potion", "Heals 500 HP", 600)
 heal_elixir = Item("Elixir", "elixir", "Heals full HP/MP of one member", 99999)
 heal_mega_elixir = Item("Mega elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
 
@@ -35,10 +35,10 @@ player_usables = [{"item": heal_potion1, "quantity": 50}, {"item": heal_potion2,
                   {"item": heal_mega_elixir, "quantity": 2}, {"item": grenade, "quantity": 2}]
 
 # Players
-player1 = Person("Albus :", 4567, 45, 20, 34, player_magic, player_usables)
-player2 = Person("RJoule:", 3647, 45, 20, 34, player_magic, player_usables)
-player3 = Person("Bunny :", 4125, 45, 20, 34, player_magic, player_usables)
-enemy = Person("Thanos", 1200, 50, 100, 7, [], [])
+player1 = Person("Albus :", 4567, 245, 80, 34, player_magic, player_usables)
+player2 = Person("RJoule:", 3647, 245, 100, 34, player_magic, player_usables)
+player3 = Person("Bunny :", 4125, 245, 120, 34, player_magic, player_usables)
+enemy = Person("Thanos", 12000, 245, 300, 7, [], [])
 
 players = [player1, player2, player3]
 
@@ -152,6 +152,9 @@ while run:
         else:
             print("Such choice does not exists!!")
             continue
+
+    if index == 3:
+        break
 
     enemy_choice = 1
 

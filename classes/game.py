@@ -55,23 +55,42 @@ class Person:
 
     def choose_magic(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "    Magic" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "        Magic" + bcolors.ENDC)
         for spell in self.magic:
-            print("        ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ".", spell.name, "(cost:", str(spell.cost) + ")" +
-                  bcolors.ENDC)
+            print("            ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i), ".", spell.name, "(cost:", str(spell.cost)
+                  + ")" + bcolors.ENDC)
             i += 1
 
     def choose_items(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "    Items" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "        Items" + bcolors.ENDC)
         for item in self.items:
-            print("        ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item["item"].name + ":", item["item"].desc,
-                  "(x" + str(item["quantity"]) + ")" + bcolors.ENDC)
+            print("            ", bcolors.BOLD + bcolors.ATTACKTYPE + str(i) + ".", item["item"].name + ":",
+                  item["item"].desc, "(x" + str(item["quantity"]) + ")" + bcolors.ENDC)
             i += 1
 
     def get_stats(self):
+        healthbar = ""
+        mpbar = ""
+        health_bar = (self.hp / self.maxhp) * 100 / 4
+        mp_bar = (self.mp / self.maxmp) * 100 / 10
+
+        while health_bar > 0:
+            healthbar += "█"
+            health_bar -= 1
+
+        while len(healthbar) < 25:
+            healthbar += " "
+
+        while mp_bar > 0:
+            mpbar += "█"
+            mp_bar -= 1
+
+        while len(mpbar) < 10:
+            mpbar += " "
+
         print("                        _________________________              __________")
         print(bcolors.BOLD + self.name + "     " + str(self.hp) + "/" + str(self.maxhp) + "  |" + bcolors.OKGREEN
-              + "█████████████████████████" + bcolors.ENDC + bcolors.BOLD + "|     " + str(self.mp) + "/"
-              + str(self.maxmp) + "  |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|"
+              + healthbar + bcolors.ENDC + bcolors.BOLD + "|     " + str(self.mp) + "/"
+              + str(self.maxmp) + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD + "|"
               + bcolors.ENDC)
