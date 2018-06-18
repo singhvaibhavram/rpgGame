@@ -23,7 +23,7 @@ heal_potion1 = Item("Heal Potion(Low)", "potion", "Heals 50 HP", 150)
 heal_potion2 = Item("Hi-Heal Potion", "potion", "Heals 100 HP", 200)
 heal_potion3 = Item("Super Heal Potion", "potion", "Heals 500 HP", 600)
 heal_elixir = Item("Elixir", "elixir", "Heals full HP/MP of one member", 99999)
-heal_mega_elixir = Item("Mega elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
+heal_mega_elixir = Item("Mega Elixir", "elixir", "Heals full HP/MP of the whole team", 999999)
 
 # Damage Items
 grenade = Item("Grenade", "throwable", "Deals 500 damage", 500)
@@ -38,7 +38,7 @@ player_usables = [{"item": heal_potion1, "quantity": 50}, {"item": heal_potion2,
 player1 = Person("Albus :", 4567, 245, 80, 34, player_magic, player_usables)
 player2 = Person("RJoule:", 3647, 245, 100, 34, player_magic, player_usables)
 player3 = Person("Bunny :", 4125, 245, 120, 34, player_magic, player_usables)
-enemy = Person("Thanos", 12000, 245, 300, 7, [], [])
+enemy = Person("Thanos:", 12000, 245, 300, 7, [], [])
 
 players = [player1, player2, player3]
 
@@ -53,7 +53,10 @@ while run:
     print("\n")
 
     for player in players:
-        player.get_stats()
+        player.get_player_stats()
+    print("\n")
+
+    enemy.get_enemy_stats()
     print("\n")
 
     for player in players:
@@ -136,9 +139,15 @@ while run:
                       "HP!" + bcolors.ENDC)
 
             elif item.itype == "elixir":
-                player.hp = player.maxhp
-                player.mp = player.maxmp
-                print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You fully restored your HP and MP!" + bcolors.ENDC)
+                if item.name == "Mega Elixir":
+                    player.hp = player.maxhp
+                    player.mp = player.maxmp
+                    print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You fully restored your Team's HP and MP!" + bcolors.ENDC)
+
+                else:
+                    player.hp = player.maxhp
+                    player.mp = player.maxmp
+                    print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You fully restored your HP and MP!" + bcolors.ENDC)
 
             elif item.itype == "throwable":
                 enemy.take_damage(item_dmg)
@@ -161,12 +170,11 @@ while run:
     if enemy_choice == 1:
         print(bcolors.ATTACKCHOSEN + bcolors.BOLD + "Enemy chose Melee Attack!" + bcolors.ENDC)
         dmg = enemy.generate_damage()
-        player1.take_damage(dmg)
-        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You were attacked for", str(dmg), "damage!" + bcolors.ENDC)
 
-    # Player and Enemy HP
-    print("======================================")
-    print(bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC)
+        for player in players:
+            player.take_damage(dmg)
+            
+        print(bcolors.ATTACKGIVETAKE + bcolors.BOLD + "You were attacked for", str(dmg), "damage!" + bcolors.ENDC)
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + bcolors.BOLD + "You Won!!" + bcolors.ENDC)

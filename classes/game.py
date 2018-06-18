@@ -69,12 +69,43 @@ class Person:
                   item["item"].desc, "(x" + str(item["quantity"]) + ")" + bcolors.ENDC)
             i += 1
 
-    def get_stats(self):
+    def get_enemy_stats(self):
+        hp_display = str(self.hp) + "/" + str(self.maxhp)
+
+        healthbar = ""
+
+        health_bar = (self.hp / self.maxhp) * 100 / 2
+
+        while health_bar > 0:
+            healthbar += "█"
+            health_bar -= 1
+
+        while len(healthbar) < 50:
+            healthbar += " "
+
+        current_hp = ""
+
+        if len(hp_display) < 11:
+            decreased = 11 - len(hp_display)
+            while decreased > 0:
+                current_hp += " "
+                decreased -= 1
+
+            current_hp += hp_display
+
+        else:
+            current_hp = hp_display
+
+        print("                        __________________________________________________")
+        print(bcolors.BOLD + self.name + "    " + current_hp + " |" + bcolors.FAIL + healthbar + bcolors.ENDC + "|")
+
+    def get_player_stats(self):
         hp_display = str(self.hp) + "/" + str(self.maxhp)
         mp_display = str(self.mp) + "/" + str(self.maxmp)
 
         healthbar = ""
         mpbar = ""
+
         health_bar = (self.hp / self.maxhp) * 100 / 4
         mp_bar = (self.mp / self.maxmp) * 100 / 10
 
@@ -117,7 +148,7 @@ class Person:
         else:
             current_mp = mp_display
 
-        print("                        _________________________                __________")
-        print(bcolors.BOLD + self.name + "     " + current_hp + "  |" + bcolors.OKGREEN + healthbar + bcolors.ENDC
-              + bcolors.BOLD + "|     " + current_mp + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD
+        print("                        _________________________               __________")
+        print(bcolors.BOLD + self.name + "    " + current_hp + "   |" + bcolors.OKGREEN + healthbar + bcolors.ENDC
+              + bcolors.BOLD + "|    " + current_mp + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD
               + "|" + bcolors.ENDC)
