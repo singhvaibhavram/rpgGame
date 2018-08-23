@@ -35,9 +35,9 @@ player_usables = [{"item": heal_potion1, "quantity": 50}, {"item": heal_potion2,
                   {"item": heal_mega_elixir, "quantity": 2}, {"item": grenade, "quantity": 2}]
 
 # Players
-player1 = Person("Albus :", 4567, 245, 80, 34, player_magic, player_usables)
-player2 = Person("RJoule:", 3647, 245, 100, 34, player_magic, player_usables)
-player3 = Person("Bunny :", 4125, 245, 120, 34, player_magic, player_usables)
+player1 = Person("Tony :", 4567, 245, 80, 34, player_magic, player_usables)
+player2 = Person("Bruce:", 3647, 245, 100, 34, player_magic, player_usables)
+player3 = Person("Steve :", 4125, 245, 120, 34, player_magic, player_usables)
 enemy = Person("Thanos:", 12000, 245, 300, 7, [], [])
 
 players = [player1, player2, player3]
