@@ -1,6 +1,25 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="11">
+            <item index="0" class="java.lang.String" itemvalue="ttystatus" />
+            <item index="1" class="java.lang.String" itemvalue="cliapp" />
+            <item index="2" class="java.lang.String" itemvalue="pygame" />
+            <item index="3" class="java.lang.String" itemvalue="IMDbPY" />
+            <item index="4" class="java.lang.String" itemvalue="python-libtorrent" />
+            <item index="5" class="java.lang.String" itemvalue="pycairo" />
+            <item index="6" class="java.lang.String" itemvalue="futures" />
+            <item index="7" class="java.lang.String" itemvalue="pygobject" />
+            <item index="8" class="java.lang.String" itemvalue="PAM" />
+            <item index="9" class="java.lang.String" itemvalue="deluge" />
+            <item index="10" class="java.lang.String" itemvalue="gyp" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
     <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredErrors">
         <list>

@@ -96,7 +96,7 @@ class Person:
         else:
             current_hp = hp_display
 
-        print("                        __________________________________________________")
+        print("                        ")
         print(bcolors.BOLD + self.name + "    " + current_hp + " |" + bcolors.FAIL + healthbar + bcolors.ENDC + "|")
 
     def get_player_stats(self):
@@ -148,7 +148,7 @@ class Person:
         else:
             current_mp = mp_display
 
-        print("                        _________________________               __________")
+        print("                                       ")
         print(bcolors.BOLD + self.name + "    " + current_hp + "   |" + bcolors.OKGREEN + healthbar + bcolors.ENDC
               + bcolors.BOLD + "|    " + current_mp + "  |" + bcolors.OKBLUE + mpbar + bcolors.ENDC + bcolors.BOLD
               + "|" + bcolors.ENDC)
